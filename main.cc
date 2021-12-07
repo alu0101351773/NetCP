@@ -2,9 +2,8 @@
 #include <iostream>
 
 int main(void) {
-    std::string a = "125.0.0.1";
+    std::string a = "";
 
-    make_ip_address(0, a);
-    std::cout << "Hola pinga\n";
+    sockaddr_in ip = make_ip_address(0, a);
     return 0;
 }
