@@ -51,3 +51,28 @@ Socket::~Socket() {
         std::cout << "Error al cerrar el socket.";
     }
 }
+
+
+void Socket::send_to(const Message& message, const sockaddr_in& address) {
+    // Enviamos el mensaje con la llamada del sistema 'sendto'
+    int send_status = sendto(fd_, &message, sizeof(message), 0, reinterpret_cast<const sockaddr*>(&address), sizeof(address));
+
+    // Comprobamos que se ha enviado correctamente
+    if (send_status < 0) {
+        throw std::system_error(errno, std::system_category(), "Error al enviar el mensaje.");
+    } 
+}
+
+
+void Socket::receive_from(Message& message, sockaddr_in& address) {
+    // Calculamos el tamaño del address
+    // socklen_t ad_size = sizeof(address);
+
+    // Recibimos el mensaje de un socket desconocido (cosas de UDP)
+    int receive_status = recvfrom(fd_, &message, sizeof(message), 0, reinterpret_cast<sockaddr*> (&address), (socklen_t*) sizeof(address));
+
+    // Comprobamos que se haya recibido bien
+    if (receive_status < 0) {
+        throw std::system_error(errno, std::system_category(), "Error al recibir el mensaje.");
+    }
+}

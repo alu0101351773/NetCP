@@ -22,11 +22,18 @@
 
 sockaddr_in make_ip_address(int port, const std::string &ip_address);
 
+// Creamos la estructura a mandar en el send_to
+struct Message {
+    std::array<char, 1024> text;
+};
+
 class Socket {
     public:
         Socket(const sockaddr_in& address);
         ~Socket();
         
+        void send_to(const Message& message, const sockaddr_in& address);
+        void receive_from(Message& message, sockaddr_in& address);
     private:
         int fd_;    // Descriptor del socket a nivel interno
 };
