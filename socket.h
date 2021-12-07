@@ -22,4 +22,13 @@
 
 sockaddr_in make_ip_address(int port, const std::string &ip_address);
 
+class Socket {
+    public:
+        Socket(const sockaddr_in& address);
+        ~Socket();
+        
+    private:
+        int fd_;    // Descriptor del socket a nivel interno
+};
+
 #endif

@@ -26,3 +26,28 @@ sockaddr_in make_ip_address(int port, const std::string &ip_address) {
     }
     return return_address;
 }
+
+Socket::Socket(const sockaddr_in& new_address) {
+    // Creamos un socket de protocolo UDP
+    fd_ = socket(AF_INET, SOCK_DGRAM, 0);
+
+    // Comprobamos que el descriptor sea correcto
+    if (fd_ < 0) {
+        throw std::system_error(errno, std::system_category(), "Error al crear el socket.");
+    }
+
+    // Enlazamos el socket a la direccion (bindear)
+    int bind_status = bind(fd_, reinterpret_cast<const sockaddr*>(&new_address), sizeof(new_address));
+
+    // Comprobamos que el enlace sea correcto
+    if (bind_status < 0) {
+        throw std::system_error(errno, std::system_category(), "Error al bindear el socket.");
+    }
+}
+
+Socket::~Socket() {
+    int close_status = close(fd_);
+    if (close_status < 0) {
+        std::cout << "Error al cerrar el socket.";
+    }
+}
