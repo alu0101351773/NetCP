@@ -66,10 +66,10 @@ void Socket::send_to(const Message& message, const sockaddr_in& address) {
 
 void Socket::receive_from(Message& message, sockaddr_in& address) {
     // Calculamos el tamaño del address
-    // socklen_t ad_size = sizeof(address);
+    socklen_t ad_size = sizeof(address);
 
     // Recibimos el mensaje de un socket desconocido (cosas de UDP)
-    int receive_status = recvfrom(fd_, &message, sizeof(message), 0, reinterpret_cast<sockaddr*> (&address), (socklen_t*) sizeof(address));
+    int receive_status = recvfrom(fd_, &message, sizeof(message), 0, reinterpret_cast<sockaddr*> (&address), &ad_size);
 
     // Comprobamos que se haya recibido bien
     if (receive_status < 0) {

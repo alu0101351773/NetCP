@@ -2,9 +2,7 @@
 #include <iostream>
 
 int main(void) {
-    std::string a = "";
+    std::array<char, 1024> textito;
 
-    sockaddr_in ip = make_ip_address(0, a);
-    Socket nuevo_socket(ip);
-    return 0;
+    
 }
