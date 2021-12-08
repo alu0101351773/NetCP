@@ -4,6 +4,7 @@
 // FECHA:       08-12-2021
 
 #include "socket.h"
+#include "file.h"
 #include <iostream>
 
 Message mensaje_enviado;
@@ -17,23 +18,14 @@ int main(void) {
     // Creamos el socket emisor
     Socket socket_para_enviar(emisor);
 
-    // Abrimos el archivo de prueba
-    int test_fd = open("prueba.txt", O_RDONLY);
-    if (test_fd < 0) {
-        throw std::system_error(errno, std::system_category(), "Error al abrir el fichero");
-    }
+    // Abrimos el archivo de prueba con nuestra clase File
+    File input("prueba.txt");
 
     // Leemos el archivo
-    while (read(test_fd, &mensaje_enviado.text, sizeof(mensaje_enviado.text) - 1) != 0) {
+    while ( input.Read(mensaje_enviado) != 0) {
         // Enviamos el mensaje leido
         socket_para_enviar.send_to(mensaje_enviado, receptor);
     }  
-    
-    // Cerramos el archivo
-    int close_status = close(test_fd);
-    if (close_status < 0) {
-        throw std::system_error(errno, std::system_category(), "Error al cerrar el fichero");
-    }
     
     return 0;
 }
