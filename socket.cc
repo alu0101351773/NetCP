@@ -1,3 +1,8 @@
+// PRACTICA:    ViewNet entregable 1
+// AUTOR:       Jorge Cabrera Rodríguez
+// ALUMNO:      alu0101351773
+// FECHA:       08-12-2021
+
 #include "socket.h"
 
 sockaddr_in make_ip_address(int port, const std::string &ip_address) {
@@ -27,6 +32,8 @@ sockaddr_in make_ip_address(int port, const std::string &ip_address) {
     return return_address;
 }
 
+
+
 Socket::Socket(const sockaddr_in& new_address) {
     // Creamos un socket de protocolo UDP
     fd_ = socket(AF_INET, SOCK_DGRAM, 0);
@@ -45,12 +52,15 @@ Socket::Socket(const sockaddr_in& new_address) {
     }
 }
 
+
+
 Socket::~Socket() {
     int close_status = close(fd_);
     if (close_status < 0) {
         std::cout << "Error al cerrar el socket.";
     }
 }
+
 
 
 void Socket::send_to(const Message& message, const sockaddr_in& address) {
@@ -62,6 +72,7 @@ void Socket::send_to(const Message& message, const sockaddr_in& address) {
         throw std::system_error(errno, std::system_category(), "Error al enviar el mensaje.");
     } 
 }
+
 
 
 void Socket::receive_from(Message& message, sockaddr_in& address) {

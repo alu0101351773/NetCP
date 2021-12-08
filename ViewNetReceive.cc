@@ -1,3 +1,8 @@
+// PRACTICA:    ViewNet entregable 1
+// AUTOR:       Jorge Cabrera Rodríguez
+// ALUMNO:      alu0101351773
+// FECHA:       08-12-2021
+
 #include "socket.h"
 #include <iostream>
 
@@ -10,14 +15,13 @@ int main(void) {
     Socket socket_para_recibir(receptor);
 
     while (true) {
+        // Recibimos los mensajes y los guardamos en 'mensaje_recibido'
         socket_para_recibir.receive_from(mensaje_recibido, emisor);
-        if (!mensaje_recibido.text.empty()) {
-            std::cout << mensaje_recibido.text.data() << std::endl;
-            break;
-        }
+        
+        // Imprimimos los mensajes
+        mensaje_recibido.text[1023] = '\0';
+        std::cout << mensaje_recibido.text.data() << std::endl;
+
     }
-
-
-
     return 0;
 }
