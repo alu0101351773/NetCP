@@ -9,7 +9,7 @@
 Message mensaje_recibido;
 
 int protected_main(void) {
-    sockaddr_in receptor = make_ip_address(6000, "pepinillos");
+    sockaddr_in receptor = make_ip_address(6000, "127.0.0.1");
     sockaddr_in emisor;
 
     Socket socket_para_recibir(receptor);
