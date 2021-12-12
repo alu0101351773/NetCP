@@ -4,12 +4,12 @@
 # FECHA:       08-12-2021
 
 # Código objeto del socket
-socket.o:
+socket:
 	g++ -c socket.cc -o socket.o
 
 
 # Código objeto del file
-file.o:
+file:
 	g++ -c file.cc -o file.o
 
 
@@ -24,7 +24,7 @@ receive:
 
 
 # Compilamos todo de una vez
-all: socket.o file.o send receive
+all: socket file send receive
 
 
 # Limpiamos los archivos residuales y ejecutables

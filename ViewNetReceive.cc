@@ -8,8 +8,8 @@
 
 Message mensaje_recibido;
 
-int main(void) {
-    sockaddr_in receptor = make_ip_address(6000, "127.0.0.1");
+int protected_main(void) {
+    sockaddr_in receptor = make_ip_address(6000, "pepinillos");
     sockaddr_in emisor;
 
     Socket socket_para_recibir(receptor);
@@ -23,5 +23,24 @@ int main(void) {
         std::cout << mensaje_recibido.text.data() << std::endl;
 
     }
+    return 0;
+}
+
+
+
+int main(void) {
+
+    try {
+        return protected_main();
+    }
+    catch(std::invalid_argument& e) {
+        std::cerr << "ViewNetSend (argumento inválido): " << e.what() << '\n';
+        return 2;
+    }
+    catch(std::system_error& e) {
+        std::cerr << "ViewNetSend (error del sistema): " << e.what() << '\n';
+        return 2;
+    }
+
     return 0;
 }

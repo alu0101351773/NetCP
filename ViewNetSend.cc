@@ -9,7 +9,9 @@
 
 Message mensaje_enviado;
 
-int main(void) {
+
+
+int protected_main(void) {
 
     // Establecemos las direcciones a utilizar
     sockaddr_in emisor = make_ip_address(0, "127.0.0.1");
@@ -27,5 +29,24 @@ int main(void) {
         socket_para_enviar.send_to(mensaje_enviado, receptor);
     }  
     
+    return 0;
+}
+
+
+
+int main(void) {
+
+    try {
+        return protected_main();
+    }
+    catch(std::invalid_argument& e) {
+        std::cerr << "ViewNetSend (argumento inválido): " << e.what() << '\n';
+        return 2;
+    }
+    catch(std::system_error& e) {
+        std::cerr << "ViewNetSend (error del sistema): " << e.what() << '\n';
+        return 2;
+    }
+
     return 0;
 }
