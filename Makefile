@@ -26,7 +26,10 @@ receive:
 # Compilamos todo de una vez
 all: socket file send receive
 
+tar:
+	tar -v -czf ViewNet.tar.gz *
+
 
 # Limpiamos los archivos residuales y ejecutables
 clean:
-	rm -r -f *.o */send */receive
+	rm -r -f *.o */send */receive *.tar.gz
